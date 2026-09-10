@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+  <style>
+    #map{
+      width: 100%;
+      height: 1000px;
+    }
+  </style>
+<body>
+    <div id="map"></div>
+<script>
+    function initMap(){
+        // マップを作成
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 35.19063, lng: 136.85241 }, 
+            zoom: 12,
+        });
+
+        const locations = [
+            { 
+                image:"images/清須城.png",
+                name: "清洲城", lat: 35.21655, lng:136.84360 ,
+                point: 
+                    `
+                        清洲城は、愛知県清須市にある城で、戦国時代に築かれました。<br>
+                        織田信長が幼少期を過ごした場所としても知られています。<br>
+                        現在は復元された天守閣があり、歴史的な展示やイベントが行われています。
+                    `,
+                url: "https://www.city.kiyosu.aichi.jp/shisetsu_annai/kanko_shisetsu_sonota/kiyosujo.html"         
+            },
+            { 
+                image:"images/清須城跡.png",
+                name: "清洲古城跡公園", lat: 35.21932303521361, lng:136.84409454588163 ,
+                point: `
+                        清洲古城跡公園は、愛知県清須市に位置する歴史的な公園で、戦国時代の清洲城の跡地に整備されています。<br>
+                        公園内には城跡の石垣や堀が残されており、散策や歴史学習の場として利用されています。<br>
+                        また、季節ごとに花見やイベントも開催されることがあります。
+                        `,
+                url: "https://aichinow.pref.aichi.jp/spots/detail/1018/"
+            },
+            { 
+                image:"images/総見寺.jpg",
+                name: "總見寺", lat: 35.159833, lng:136.903000 ,
+                point: `
+                        総見寺は、愛知県名古屋市中区大須にある歴史的な寺院で、戦国時代に建立されました。<br>
+                        織田信長の父・織田信秀の菩提を弔うために建てられたとされ、信長自身もこの寺を訪れたことがあります。<br>
+                        境内には歴史的な建造物や庭園があり、静かな雰囲気の中で歴史を感じることができます。
+                        `,
+                url: "https://ja.wikipedia.org/wiki/%E7%B8%BD%E8%A6%8B%E5%AF%BA"
+            },
+            { 
+                image:"images/愛知遺跡.png",
+                name: "あいち遺跡ミュージアム", lat:35.21917930697832, lng:136.8528492552295,
+                point: `
+                        あいち遺跡ミュージアムは、愛知県清須市に位置する遺跡博物館で、<br>
+                        戦国時代の遺跡や文化財を展示しています。<br>
+                        歴史的な発見や学習の場として、多くの訪問者を魅了しています。
+                        `,
+                url: "https://aichi-asahi.jp/"
+            },
+            { 
+                image:"images/那古野城.jpg",
+                name: "那古野城跡", lat:35.184306,lng:136.902056,
+                point: `
+                        那古野城跡は、愛知県名古屋市中区に位置する歴史的な城跡で、戦国時代に築かれました。<br>
+                        織田信長が幼少期を過ごした場所としても知られています。<br>
+                        現在は公園として整備されており、石垣や堀の一部が残されています。<br>
+                        歴史的な散策や学習の場として訪れる人々に人気があります。
+                        `,
+                url: "https://www.nagoyajo.city.nagoya.jp/learn/history/zenshi/"
+            },
+            { 
+                image:"images/名古屋城.jpg",
+                name: "名古屋城", lat:35.1855,lng:136.899043,
+                point: `
+                        名古屋城は、愛知県名古屋市中区に位置する歴史的な城で、江戸時代に築かれました。<br>
+                        徳川家康の命により建設され、戦国時代の名将・織田信長の居城としても知られています。<br>
+                        現在は復元された天守閣があり、歴史的な展示や観光スポットとして多くの人々に訪れられています。
+                        `,
+                url: "https://www.nagoyajo.city.nagoya.jp/"
+            },
+            { 
+                image:"images/熱田神宮.jpg",
+                name: "熱田神宮", lat:35.127361,lng:136.908667,
+                point: `
+                        熱田神宮は、愛知県名古屋市熱田区に位置する歴史的な神社で、三種の神器の一つである草薙剣を祀っています。<br>
+                        古代から続く神社であり、歴史的な建造物や庭園が広がっています。<br>
+                        多くの参拝者が訪れ、祭りや行事も盛んに行われています。
+                        `,
+                url: "https://www.atsutajingu.or.jp/"
+            },
+            { 
+                image:"images/桶狭間.jpg",
+                name: "桶狭間古戦場公園", lat:35.05997,lng:136.98078,
+                point: `
+                        桶狭間古戦場公園は、愛知県名古屋市に位置する歴史的な戦場で、<br>
+                        戦国時代に織田信長が桶狭間の戦いを勝ち抜いた場所です。<br>
+                        現在は公園として整備されており、歴史的な散策や学習の場として訪れる人々に人気があります。
+                        `,
+                url: "https://aichinow.pref.aichi.jp/spots/detail/310/"
+            },
+            {
+                image:"images/万松寺.jpg",
+                name:"亀岳林　万松寺",lat:35.159125,lng:136.904689,
+                point: `
+                        万松寺は、愛知県名古屋市に位置する歴史的な寺院で、戦国時代に建立されました。<br>
+                        織田信長の父・織田信秀の菩提を弔うために建てられたとされ、信長自身もこの寺を訪れたことがあります。<br>
+                        境内には歴史的な建造物や庭園があり、静かな雰囲気の中で歴史を感じることができます。
+                        `,
+                url: "https://aichinow.pref.aichi.jp/spots/detail/3621/"
+            },
+            { 
+                image:"images/小牧山城.jpg",
+                name: "小牧山城", lat:35.2925,lng:136.9136,
+                point: `
+                        小牧山城は、愛知県小牧市に位置する歴史的な城で、戦国時代に築かれました。<br>
+                        織田信長の父・織田信秀が築いたとされ、信長自身もこの城を訪れたことがあります。<br>
+                        現在は公園として整備されており、石垣や堀の一部が残されています。<br>
+                        歴史的な散策や学習の場として訪れる人々に人気があります。
+                        `,
+                url:"https://aichinow.pref.aichi.jp/spots/detail/24/"
+            },
+            { 
+                image:"images/勝幡.jpg",
+                name: "勝幡城跡", lat:35.197912,lng:136.745104,
+                point: `
+                        勝幡城は、愛知県稲沢市に位置する歴史的な城で、戦国時代に築かれました。<br>
+                        織田信長の父・織田信秀が築いたとされ、信長自身もこの城を訪れたことがあります。<br>
+                        現在は公園として整備されており、石垣や堀の一部が残されています。<br>
+                        歴史的な散策や学習の場として訪れる人々に人気があります。
+                        `,
+                url: "https://aichinow.pref.aichi.jp/spots/detail/309/"
+            },
+        ];
+
+        // 情報ウィンドウを作成
+        const infoWindow = new google.maps.InfoWindow();
+
+        // マーカーをクリックしたときのイベント追加
+        locations.forEach(function(loc) {
+            const marker = new google.maps.Marker({
+                position: { lat: loc.lat, lng: loc.lng },
+                map: map,
+                title: loc.name
+            });
+
+            marker.addListener("click", function() {
+                const NobunagaNoAyumi = `
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${loc.image}" alt="${loc.name}" style="width: 200px; height: auto;">
+                            <div>
+                                <h2 style="margin: 0;">${loc.name}</h2>
+                                <p>${loc.point}</p>
+                            </div>
+                        </div>
+
+                        <a href="${loc.url}" target="_blank">詳細はこちら</a>
+                    </div>
+                `;
+                infoWindow.setContent(NobunagaNoAyumi);
+                infoWindow.open(map, marker);
+            });
+        });
+    }
+
+    // マップの初期化を待つ
+    window.initMap = initMap;
+    // マップの初期化が完了したら、マップを表示する
+    window.addEventListener("load", () => {
+        initMap();
+    });
+</script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAKLjisxFelKwIl1_G6MiEO9-ya7Twr5s&callback=console.debug&libraries=maps,marker&v=beta">
+    </script>
+</body>
+</html>
